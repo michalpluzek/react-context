@@ -2,13 +2,13 @@ import React from "react";
 import { AppContext } from "./AppContext";
 
 class Button extends React.Component {
+  static contextType = AppContext;
+
   render() {
+    const { toggleLoggedState } = this.context;
+
     return (
-      <AppContext.Consumer>
-        {({ toggleLoggedState }) => (
-          <button onClick={toggleLoggedState}>Przełącz stan użytkownika</button>
-        )}
-      </AppContext.Consumer>
+      <button onClick={toggleLoggedState}>Przełącz stan użytkownika</button>
     );
   }
 }

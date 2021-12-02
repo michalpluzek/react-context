@@ -10,6 +10,7 @@ import "./App.css";
 class App extends React.Component {
   state = {
     isUserLogged: defaultObject.isUserLogged,
+    isUserAdult: true,
   };
 
   render() {
@@ -24,6 +25,15 @@ class App extends React.Component {
           <UserInfo />
           <Button />
         </AppContext.Provider>
+        <AppContext.Provider
+          value={{
+            isUserLogged: this.state.isUserAdult,
+            toggleLoggedState: this.handleToggleStateIsAdult,
+          }}
+        >
+          <UserInfo />
+          <Button />
+        </AppContext.Provider>
       </div>
     );
   }
@@ -31,6 +41,12 @@ class App extends React.Component {
   handleToggleStateIsLogged = () => {
     this.setState((prevState) => ({
       isUserLogged: !prevState.isUserLogged,
+    }));
+  };
+
+  handleToggleStateIsAdult = () => {
+    this.setState((prevState) => ({
+      isUserAdult: !prevState.isUserAdult,
     }));
   };
 }
