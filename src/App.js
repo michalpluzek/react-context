@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Button from "./Button";
 import UserInfo from "./UserInfo";
@@ -7,48 +7,39 @@ import { AppContext, defaultObject } from "./AppContext";
 
 import "./App.css";
 
-class App extends React.Component {
-  state = {
-    isUserLogged: defaultObject.isUserLogged,
-    isUserAdult: true,
+const App = () => {
+  const [isUserLogged, setIsUserLogged] = useState(defaultObject.isUserLogged);
+  const [isUserAdult, setIsUserAdult] = useState(true);
+
+  const handleToggleStateIsLogged = () => {
+    setIsUserLogged((prevValue) => !prevValue);
   };
 
-  render() {
-    return (
-      <div className="App">
-        <AppContext.Provider
-          value={{
-            isUserLogged: this.state.isUserLogged,
-            toggleLoggedState: this.handleToggleStateIsLogged,
-          }}
-        >
-          <UserInfo />
-          <Button />
-        </AppContext.Provider>
-        <AppContext.Provider
-          value={{
-            isUserLogged: this.state.isUserAdult,
-            toggleLoggedState: this.handleToggleStateIsAdult,
-          }}
-        >
-          <UserInfo />
-          <Button />
-        </AppContext.Provider>
-      </div>
-    );
-  }
-
-  handleToggleStateIsLogged = () => {
-    this.setState((prevState) => ({
-      isUserLogged: !prevState.isUserLogged,
-    }));
+  const handleToggleStateIsAdult = () => {
+    setIsUserAdult((prevValue) => !prevValue);
   };
 
-  handleToggleStateIsAdult = () => {
-    this.setState((prevState) => ({
-      isUserAdult: !prevState.isUserAdult,
-    }));
-  };
-}
-
+  return (
+    <div className="App">
+      <AppContext.Provider
+        value={{
+          isUserLogged,
+          toggleLoggedState: handleToggleStateIsLogged,
+        }}
+      >
+        <UserInfo />
+        <Button />
+      </AppContext.Provider>
+      <AppContext.Provider
+        value={{
+          isUserLogged: isUserAdult,
+          toggleLoggedState: handleToggleStateIsAdult,
+        }}
+      >
+        <UserInfo />
+        <Button />
+      </AppContext.Provider>
+    </div>
+  );
+};
 export default App;

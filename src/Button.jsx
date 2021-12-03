@@ -1,16 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AppContext } from "./AppContext";
 
-class Button extends React.Component {
-  static contextType = AppContext;
+const Button = () => {
+  const { toggleLoggedState } = useContext(AppContext);
 
-  render() {
-    const { toggleLoggedState } = this.context;
-
-    return (
-      <button onClick={toggleLoggedState}>Przełącz stan użytkownika</button>
-    );
-  }
-}
+  return <button onClick={toggleLoggedState}>Przełącz stan użytkownika</button>;
+};
 
 export default Button;
